@@ -11,18 +11,17 @@ using namespace std;
 Resources used:
 - https://towardsdatascience.com/recreating-pytorch-from-scratch-with-gpu-support-and-automatic-differentiation-8f565122a3cc
  */
-class Tensor {
+template <typename A> class Tensor {
     private:
-        vector<float> data; // array of data
+        vector<A> data; // array of data
         vector<int> shape; // array of shape of each dimension 
         vector<int> stride; // indices needed to traverse to get to a certain index. i.e. shape=[3,4,4] then stride = [16,4,1]
         int ndim; // number of dimensions (rank)
         int dSize; // size of data
-        //string device; //cpu/gpu
+        string device; //cpu/gpu
 
     public:
-        string device; //cpu/gpu
-        Tensor(const vector<float>& data, const vector<int>& shape, const string& device);
+        Tensor(const vector<A>& data, const vector<int>& shape, const string& device);
         ~Tensor();
 
         void print() const;
@@ -31,17 +30,18 @@ class Tensor {
         void transpose();
         Tensor dot(const Tensor& o) const;
         Tensor matmul(Tensor& o);
-        float item(); //gets element of tensor[1]
+        A item(); //gets element of tensor[1]
+        A& at(const vector<int>& idx);
 
+        Tensor operator=(const Tensor& o);
         Tensor operator+(const Tensor& o) const;
         Tensor operator-(const Tensor& o) const;
-        Tensor operator[](int idx) const; //first dimension
-        //float operator[](int idx); //read-write final dimension
+        Tensor operator[](int idx) const; // has to be read-only due to being c++
 
 
-        Tensor zeros(vector<int>& shape);  
-        Tensor ones(vector<int>& shape);
-        Tensor rand(vector<int>& shape);
-        Tensor eye(vector<int>& shape);
+        static Tensor zeros(vector<int>& shape, string& device);  
+        static Tensor ones(vector<int>& shape, string& device);
+        static Tensor rand(vector<int>& shape);
+        static Tensor eye(vector<int>& shape);
 
 };
