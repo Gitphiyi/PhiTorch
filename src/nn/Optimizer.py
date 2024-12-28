@@ -9,3 +9,7 @@ class Optimizer:
             zeros gradient for all parameters
         """
         pass
+    
+class SGD(Optimizer):
+    def __init__(self):
+        pass

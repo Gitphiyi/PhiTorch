@@ -38,3 +38,6 @@ class Linear:
         
     def __str__(self):
         return f'Weight: {self.weight} \n Bias: {self.bias}'
+
+def MSELoss():
+    pass

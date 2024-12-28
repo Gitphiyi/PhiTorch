@@ -14,6 +14,7 @@ Resources used:
 class Tensor {
     private:
         vector<float> data; // array of data
+        vector<float> grad; // array of gradients
         vector<int> shape; // array of shape of each dimension 
         vector<int> stride; // indices needed to traverse to get to a certain index. i.e. shape=[3,4,4] then stride = [16,4,1]
         int ndim; // number of dimensions (rank)
