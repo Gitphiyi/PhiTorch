@@ -4,6 +4,16 @@ import numpy as np
 version = "1.0.0"
 author = "Philip Yi"
 
+class Batch_Norm:
+    def __init__(self, beta, gamma):
+        pass 
+    
+class Activation:
+    def __init__(self, activation_func: str):
+        self.activation_func = 0 #use map to map str -> function
+        pass
+    def __call__(self, input: np.ndarray) -> np.ndarray:
+        pass
 
 class Linear:
     """
@@ -18,7 +28,7 @@ class Linear:
         self.weight = np.random.uniform(low = -bound, high=bound, size=(out_features, in_features))
         self.bias = np.random.uniform(low = -bound, high=bound, size=out_features)
                 
-    def __call__(self, input:np.ndarray) -> np.ndarray:
+    def __call__(self, input: np.ndarray) -> np.ndarray:
         weight_transposed = np.transpose(self.weight)
         if weight_transposed.ndim == 1:
             x = np.dot(input, weight_transposed)

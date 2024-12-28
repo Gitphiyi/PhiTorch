@@ -11,9 +11,9 @@ using namespace std;
 Resources used:
 - https://towardsdatascience.com/recreating-pytorch-from-scratch-with-gpu-support-and-automatic-differentiation-8f565122a3cc
  */
-template <typename A> class Tensor {
+class Tensor {
     private:
-        vector<A> data; // array of data
+        vector<float> data; // array of data
         vector<int> shape; // array of shape of each dimension 
         vector<int> stride; // indices needed to traverse to get to a certain index. i.e. shape=[3,4,4] then stride = [16,4,1]
         int ndim; // number of dimensions (rank)
@@ -21,7 +21,7 @@ template <typename A> class Tensor {
         string device; //cpu/gpu
 
     public:
-        Tensor(const vector<A>& data, const vector<int>& shape, const string& device);
+        Tensor(const vector<float>& data, const vector<int>& shape, const string& device);
         ~Tensor();
 
         void print() const;
@@ -30,8 +30,8 @@ template <typename A> class Tensor {
         void transpose();
         Tensor dot(const Tensor& o) const;
         Tensor matmul(Tensor& o);
-        A item(); //gets element of tensor[1]
-        A& at(const vector<int>& idx);
+        float item(); //gets element of tensor[1]
+        float& at(const vector<int>& idx);
 
         Tensor operator=(const Tensor& o);
         Tensor operator+(const Tensor& o) const;

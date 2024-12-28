@@ -9,8 +9,7 @@
 
 using namespace std;
 
-template <typename A> 
-Tensor<A>::Tensor(const vector<A>& data, const vector<int>& shape, const string& device){
+Tensor::Tensor(const vector<float>& data, const vector<int>& shape, const string& device){
     int n = data.size();
     int sn = shape.size();
     int totalSize = 1;
@@ -39,13 +38,11 @@ Tensor<A>::Tensor(const vector<A>& data, const vector<int>& shape, const string&
     this->dSize = n;
 }
 
-template <typename A> 
-Tensor<A>::~Tensor() {
+Tensor::~Tensor() {
     //cout << "destroyed tensor\n";
 }
 
-template <typename A> 
-void Tensor<A>::print() const {
+void Tensor::print() const {
     cout<<"Data: "<<endl<<"[";
     for(int i = 0; i < dSize; i++) {
         cout << data[i];
@@ -64,22 +61,19 @@ void Tensor<A>::print() const {
     cout<<"]"<<endl;
 }
 
-template <typename A> 
-void Tensor<A>::flatten() {
+void Tensor::flatten() {
     int n = data.size();
     shape = {n};
 }
 
-template <typename A> 
-void Tensor<A>::reshape(const vector<int>& shape, const int dSize) {
+void Tensor::reshape(const vector<int>& shape, const int dSize) {
     if(shape.size() != ndim || this->dSize != dSize) {
         throw runtime_error("shape or data size is not the same");
     }
     this->shape = shape;
 }
 
-template <typename A> 
-void Tensor<A>::transpose() {
+void Tensor::transpose() {
     if(ndim == 2) {
         int temp = shape[0];
         shape[0] = shape[1];
@@ -90,8 +84,7 @@ void Tensor<A>::transpose() {
     }
 }
 
-template <typename A> 
-Tensor<A> Tensor<A>::dot(const Tensor& o) const {
+Tensor Tensor::dot(const Tensor& o) const {
     if(o.dSize != dSize) {
         throw runtime_error("data size is not the same");
     }
@@ -105,15 +98,13 @@ Tensor<A> Tensor<A>::dot(const Tensor& o) const {
     return Tensor({val}, {1}, device);
 }
 
-template <typename A> 
-A Tensor<A>::item() {
+float Tensor::item() {
     if(dSize != 1) {
         throw runtime_error("not a type tensor[0]");
     }
     return data[0];
 }
-template <typename A> 
-A& Tensor<A>::at(const vector<int>& idx) {
+float& Tensor::at(const vector<int>& idx) {
     int n = idx.size();
     if(ndim != n) {
         throw runtime_error("index not correct dimensions");
@@ -125,35 +116,32 @@ A& Tensor<A>::at(const vector<int>& idx) {
     return data[pos];
 }
 
-template <typename A> 
-Tensor<A> Tensor<A>::operator+(const Tensor& o) const {
+Tensor Tensor::operator+(const Tensor& o) const {
     if(o.dSize != dSize) {
         throw runtime_error("data sizes are not the same");
     }
-    vector<A> temp;
+    vector<float> temp;
     for(int i = 0; i < dSize; i++) {
         temp.push_back(o.data[i] + data[i]);
     }
     return Tensor(temp, shape, device);
 }
 
-template <typename A> 
-Tensor<A> Tensor<A>::operator-(const Tensor& o) const {
+Tensor Tensor::operator-(const Tensor& o) const {
     if(o.dSize != dSize) {
         throw runtime_error("data sizes are not the same");
     }
-    vector<A> temp;
+    vector<float> temp;
     for(int i = 0; i < dSize; i++) {
         temp.push_back(data[i]-o.data[i]);
     }
     return Tensor(temp, shape, device);
 }
 
-template <typename A> 
-Tensor<A> Tensor<A>::operator[](int idx) const {
+Tensor Tensor::operator[](int idx) const {
     int begin = stride[0]*idx;
     int end = stride[0]*(idx+1);
-    vector<A> newData;
+    vector<float> newData;
     for(int i = begin; i < end; i++) {
         newData.push_back(data[i]);
     }
@@ -165,26 +153,24 @@ Tensor<A> Tensor<A>::operator[](int idx) const {
     return Tensor(newData, newShape, device);
 }
 
-template <typename A> 
-Tensor<A> Tensor<A>::zeros(vector<int>& shape, string& device) {
+Tensor Tensor::zeros(vector<int>& shape, string& device) {
     int n = 1;
     for(int i = 0; i < shape.size(); i++) {
         n*=shape[i];
     }
-    return Tensor(vector<A>(n, 0), shape, device);
+    return Tensor(vector<float>(n, 0), shape, device);
 }
 
-template <typename A> 
-Tensor<A> Tensor<A>::ones(vector<int>& shape, string& device) {
+Tensor Tensor::ones(vector<int>& shape, string& device) {
     int n = 1;
     for(int i = 0; i < shape.size(); i++) {
         n*=shape[i];
     }
-    return Tensor(vector<A>(n, 1), shape, device);
+    return Tensor(vector<float>(n, 1), shape, device);
 }
 
 int main() {
-    vector<int> data;
+    vector<float> data;
     for(int i = 0; i < 48; i++) {
         data.push_back(i);
     }
@@ -192,7 +178,7 @@ int main() {
     string device = "cpu";
 
     Tensor tensor(data, shape, device);
-    Tensor a = Tensor<int>::zeros(shape, device);
+    Tensor a = Tensor::zeros(shape, device);
     tensor.print();
     //tensor.print();
     // Tensor a({1,2,3}, {3}, device);
