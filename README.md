@@ -6,5 +6,6 @@
 - Optimizers
 - Loss Functions
 - Neural Network Layers
+- Automatic Differentiation
 - Training Loops
 - GPU support
