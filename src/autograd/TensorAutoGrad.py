@@ -51,7 +51,8 @@ class Tensor:
         return output
     
     def __pow__(self, other):
-        pass
+        assert len(self.data) == len(other.data), "Tensor Lengths are not the same"
+
     
     def relu(self):
         """

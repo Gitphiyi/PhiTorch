@@ -49,6 +49,7 @@ def backward_test():
     print(c)
     print(b0)
     print(b1)
+    print(Ta0)
     print(Ta1)
 
 
