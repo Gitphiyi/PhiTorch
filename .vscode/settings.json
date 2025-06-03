@@ -1,10 +1,9 @@
 {
-    "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
-        "iosfwd": "cpp",
-        "vector": "cpp",
+        "array": "cpp",
+        "span": "cpp",
         "string": "cpp",
-        "ostream": "cpp"
-    },
-    "python.defaultInterpreterPath": "/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/.venv/bin/python"
+        "string_view": "cpp",
+        "vector": "cpp"
+    }
 }

@@ -1,48 +1,33 @@
-#pragma once
-#include <iostream>
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
-#include<vector>
+typedef struct Tensor {
+    float* data;
+    float* grad;    
+    int* shape;     //shape of each dim
+    int* stride;    //indices needed to traverse to get to a certain index. i.e. shape=[3,4,4] then stride = [16,4,1]
+    int ndim;       //rank
+    int dSize;      //size of data
+    const char* device;   //cpu/gpu
 
-using namespace std;
-/*
-Resources used:
-- https://towardsdatascience.com/recreating-pytorch-from-scratch-with-gpu-support-and-automatic-differentiation-8f565122a3cc
- */
-class Tensor {
-    private:
-        vector<float> data; // array of data
-        vector<float> grad; // array of gradients
-        vector<int> shape; // array of shape of each dimension 
-        vector<int> stride; // indices needed to traverse to get to a certain index. i.e. shape=[3,4,4] then stride = [16,4,1]
-        int ndim; // number of dimensions (rank)
-        int dSize; // size of data
-        string device; //cpu/gpu
+    //Tensor Functions
+    void (*print)(Tensor*);
+} Tensor;
 
-    public:
-        Tensor(const vector<float>& data, const vector<int>& shape, const string& device);
-        ~Tensor();
+Tensor* create_tensor(int* shape, int ndim);
+void    delete_tensor(Tensor* t);
 
-        void print() const;
-        void flatten(); //collapse dimension into 1
-        void reshape(const vector<int>& shape, const int dSize);
-        void transpose();
-        Tensor dot(const Tensor& o) const;
-        Tensor matmul(Tensor& o);
-        float item(); //gets element of tensor[1]
-        float& at(const vector<int>& idx);
+void    print(Tensor* t);
+Tensor* flatten(Tensor* t); //collapse dimension into 1
+Tensor* reshape(const int* shape, const int ndim, const int dSize);
+Tensor* transpose(); //only allow for 2D Tensors
+float   dot(const Tensor* o);
+Tensor* matmul(const Tensor* a, const Tensor* b);
+float   item(); //gets element of tensor[1]
+float   at(const int* idx, const int ndim);
 
-        Tensor operator=(const Tensor& o);
-        Tensor operator+(const Tensor& o) const;
-        Tensor operator-(const Tensor& o) const;
-        Tensor operator[](int idx) const; // has to be read-only due to being c++
+Tensor* equal(const Tensor* t);
+Tensor* add(const Tensor* a, const Tensor* b);
+Tensor* sub(const Tensor* a, const Tensor* b);
 
-
-        static Tensor zeros(vector<int>& shape, string& device);  
-        static Tensor ones(vector<int>& shape, string& device);
-        static Tensor rand(vector<int>& shape);
-        static Tensor eye(vector<int>& shape);
-
-};
+Tensor* zeros(const int* shape, const char* device);  
+Tensor* ones(const int* shape, const char* device);
+Tensor* rand(const int* shape, const int ndim);
+Tensor* eye(const int* shape, const int ndim);
