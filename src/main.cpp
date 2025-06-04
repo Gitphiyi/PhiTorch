@@ -5,10 +5,10 @@
 int main() {
     printf("Hello world\n");
     //int * a =(int*)malloc(s*s*sizeof(int));
-    int shape[2] = {1,2};
+    int shape[2] = {2,3};
     int ndim = 2;
     Tensor* t = create_tensor(shape, ndim);
-    //t->print(t);
+    print_metadata(t);
     delete_tensor(t);
     return 0;
 }

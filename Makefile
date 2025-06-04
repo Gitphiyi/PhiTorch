@@ -28,4 +28,5 @@ $(TARGET): $(OBJS)
 .PHONY: clean
 clean:
 	@rm -rf $(BUILD_DIR)/*.o
+	@rm -rf build/*/
 	@rm -rf $(TARGET)
