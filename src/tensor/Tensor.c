@@ -1,11 +1,17 @@
-// #pragma once
 #include "Tensor.h"
+#include "../lib/ThreadPool.h"
 #include <stdio.h>
+#include <stddef.h>
 #include <math.h>
 #include <stdlib.h>
+#include <pthread.h>
 // #include <string.h>
 
+#define NUM_THREADS 2; //optimal number of threads for cpu. should find a way to calculate this for each local machine
+
 // using namespace std;
+extern ThreadPool* threads;
+
 Tensor* create_tensor(int* shape, int ndim) {
     int dSize = 0;
     int* stride = (int*) malloc(ndim * sizeof(int));
@@ -21,17 +27,15 @@ Tensor* create_tensor(int* shape, int ndim) {
     }
     float* data = (float*) malloc(dSize * sizeof(float));
     float* grad = (float*) malloc(dSize * sizeof(float));;
-    Tensor* t = (Tensor*) malloc(sizeof(Tensor));
-    *t = Tensor {
-        .data = data,
-        .grad = grad, 
-        .shape = shape, 
-        .stride = stride, 
-        .ndim = ndim, 
-        .dSize = dSize, 
-        .device = "cpu"
-    };
-    return t;
+    Tensor* tens = (Tensor*) malloc(sizeof(Tensor));
+    tens->data = data;
+    tens->grad = grad;
+    tens->shape = shape;
+    tens->stride = stride;
+    tens->ndim = ndim;
+    tens->dSize = dSize;
+    tens->device = "cpu";
+    return tens;
 }
 
 void delete_tensor(Tensor* t) {
@@ -65,15 +69,13 @@ void print_metadata(Tensor* t) {
 Tensor* flatten(const Tensor* t) {
     int shape[1] = { t->dSize };
     Tensor* tens = (Tensor*) malloc(sizeof(Tensor));
-    *tens = Tensor {
-        .data = t->data,
-        .grad = t->grad, 
-        .shape = shape, 
-        .stride = t->stride, 
-        .ndim = 1, 
-        .dSize = t->dSize, 
-        .device = t->device
-    };
+    tens->data = t->data;
+    tens->grad = t->grad;
+    tens->shape = shape;
+    tens->stride = t->stride;
+    tens->ndim = 1;
+    tens->dSize = t->dSize;
+    tens->device = t->device;
     return tens;
 }
 
@@ -83,33 +85,31 @@ Tensor* reshape(const Tensor* t, int* shape, int ndim) {
         numData = numData * shape[i];
     }
     if(numData != t->dSize) {
-        return nullptr;
+        return NULL;
     }
     Tensor* tens = (Tensor*) malloc(sizeof(Tensor));
-    *tens = Tensor {
-        .data = t->data,
-        .grad = t->grad, 
-        .shape = shape, 
-        .stride = t->stride, 
-        .ndim = ndim, 
-        .dSize = t->dSize, 
-        .device = t->device
-    };
+    tens->data = t->data;
+    tens->grad = t->grad;
+    tens->shape = shape;
+    tens->stride = t->stride;
+    tens->ndim = ndim;
+    tens->dSize = t->dSize;
+    tens->device = t->device;
     return tens;
 }
 
 Tensor* transpose(const Tensor* t) {
     if(t->ndim != 2) {
         printf("Not a 2-D Tensor");
-        return nullptr;
+        return NULL;
     }
     Tensor* tens = (Tensor*) malloc(sizeof(Tensor));
     tens->data = (float*) malloc(t->dSize * sizeof(float));
-\   tens->grad = (float*) malloc(t->dSize * sizeof(float));
+    tens->grad = (float*) malloc(t->dSize * sizeof(float));
     tens->shape = (float*) malloc(t->ndim * sizeof(float));
-    memcpy(tens->shape, t->shape, ndim * sizeof(float));
+    memcpy(tens->shape, t->shape, t->ndim * sizeof(float));
     tens->stride = (float*) malloc(t->ndim * sizeof(float));
-    memcpy(tens->stride, t->stride, ndim * sizeof(float));
+    memcpy(tens->stride, t->stride, t->ndim * sizeof(float));
     tens->ndim = t->ndim;
     tens->dSize = t->dSize;
     tens->device = t->dSize;
@@ -130,17 +130,19 @@ Tensor* transpose(const Tensor* t) {
 float dot(const Tensor* a, const Tensor* b) {
     float dot = 0;
     if(a->dSize != b->dSize || a->ndim != 1 || b->ndim != 1) {
-        return NULL;
+        return NAN;
     }
-    for(int i = 0; i < a->dSize; i++) {
-        dot += a->data[i] * b->data[i];
-    }
+    float dot_res = 0;
+    // for(int i = 0; i < a->dSize; i++) {
+    //     dot += a->data[i] * b->data[i];
+    // }
+
     return dot;
 }
 
 Tensor* matmul(const Tensor* a, const Tensor* b) {
     int* shape[2] = {a->shape[0], b->shape[1]};
-    Tensor mat = create_tensor(shape, 2);
+    Tensor* mat = create_tensor(shape, 2);
     if(a->ndim != 2 || b->ndim != 2 || a->shape[1] != b->shape[0] ) {
         return NULL;
     }
@@ -155,7 +157,7 @@ Tensor* matmul(const Tensor* a, const Tensor* b) {
 
 float item(const Tensor* t, int i) {
     if(i < 0 || i >= t->dSize) {
-        return NULL;
+        return NAN;
     }
     return t->data[i];
 }
