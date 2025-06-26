@@ -7,10 +7,12 @@
 #include <pthread.h>
 // #include <string.h>
 
-#define NUM_THREADS 2; //optimal number of threads for cpu. should find a way to calculate this for each local machine
 
 // using namespace std;
 extern ThreadPool* threads;
+typedef struct dot_t {
+
+} dot_t;
 
 Tensor* create_tensor(int* shape, int ndim) {
     int dSize = 0;
@@ -127,17 +129,65 @@ Tensor* transpose(const Tensor* t) {
     //multithread this if bigger than cache line
 }
 
+/**
+ * Dot product process can be split into two steps: 
+ * Multiplying pairwise a and b values
+ * Summing the products into one value
+ * 
+ */
 float dot(const Tensor* a, const Tensor* b) {
+    printf("Doing a cheeky little dot product \n");
     float dot = 0;
     if(a->dSize != b->dSize || a->ndim != 1 || b->ndim != 1) {
         return NAN;
     }
-    float dot_res = 0;
-    // for(int i = 0; i < a->dSize; i++) {
-    //     dot += a->data[i] * b->data[i];
-    // }
-
-    return dot;
+    dot_t args = {
+        .a = a,
+        .b = b,
+        .st = 0,
+        .end = a->dSize
+    };
+    return dot_helper(&args);
+}
+typedef struct dot_t {
+    const Tensor* a;
+    const Tensor* b;
+    const int st;
+    const int end;
+} dot_t;
+float dot_helper(const dot_t* d) {
+    const int maxLoopIter = 100;
+    const int mid = (d->end + d->st) / 2;
+    float result = 0;
+    if (d->end - d->st <= maxLoopIter) {
+        for(int i = 0; i < d->a->dSize; i++) {
+            result += d->a->data[i] * d->b->data[i];
+        }
+        return result;
+    }
+    pthread_t thread1;
+    pthread_t thread2;
+    dot_t* l_tens = malloc(sizeof(dot_t));
+    memcpy(l_tens,
+        &(dot_t){ .a=d->a, .b=d->b, .st=d->st, .end=mid },
+        sizeof(dot_t));
+    //*l_tens = (dot_t){.a = d->a, .b = d->b, .st = d->st, .end = mid};
+    dot_t* r_tens = malloc(sizeof(dot_t));
+    memcpy(r_tens,
+        &(dot_t){ .a=d->a, .b=d->b, .st=mid+1, .end=d->end },
+        sizeof(dot_t));
+    //*r_tens = (dot_t){.a = d->a, .b = d->b, .st = d->st, .end = mid};
+    pthread_create(thread1, NULL, dot_helper, l_tens);
+    pthread_create(thread2, NULL, dot_helper, r_tens);
+    void* res1;
+    void* res2;
+    int ret = pthread_join(thread1, &res1);
+    int ret2 = pthread_join(thread2, &res2);
+    if(ret == 0 || ret2 == 0) { return NAN; }
+    float dot_add = *(float *)res1 + *(float *)res2;
+    free(l_tens);
+    free(r_tens);
+    return dot_add;
 }
 
 Tensor* matmul(const Tensor* a, const Tensor* b) {
