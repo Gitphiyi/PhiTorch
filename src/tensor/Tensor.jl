@@ -7,3 +7,6 @@ using Metal
 Metal.versioninfo()
 
 print("Hello World")
+
+function gpu_dot()
+end

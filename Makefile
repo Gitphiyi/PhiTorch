@@ -1,5 +1,5 @@
 CC := g++
-CC_FLAGS := -Wall -Wextra -std=c++17 -I$(SRC_DIR) -g -fsanitize=address
+CC_FLAGS := -Wall -Wextra -std=c -I$(SRC_DIR) -g -fsanitize=address
 BUILD_DIR := ./build
 SRC_DIR := ./src
 #SRCS := $(wildcard $(SRC_DIR)/*.cpp)

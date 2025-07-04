@@ -10,15 +10,16 @@ typedef struct {
     int dSize;      //size of data
     const char* device;   //cpu/gpu
 
-    Tensor* operator=(const Tensor& o);
-    Tensor* operator+(const Tensor* o);
-    Tensor* operator-(const Tensor* o);
+    // Tensor* operator=(const Tensor& o);
+    // Tensor* operator+(const Tensor* o);
+    // Tensor* operator-(const Tensor* o);
 
 } Tensor;
 
 Tensor* create_tensor(int* shape, int ndim);
 void    delete_tensor(Tensor* t);
 
+int     set_data(Tensor* tens, float* data, int size);
 void    print_metadata(Tensor* t);
 Tensor* flatten(const Tensor* t); //collapse dimension into 1
 Tensor* reshape(const Tensor* t, int* shape, int ndim);
@@ -31,6 +32,6 @@ float   at(const int* shape, int ndim);
 
 Tensor* zeros(const int* shape, const char* device);  
 Tensor* ones(const int* shape, const char* device);
-Tensor* rand(const int* shape, const int ndim);
+Tensor* rand_tens(const int* shape, const int ndim);
 Tensor* eye(const int* shape, const int ndim);
 #endif
