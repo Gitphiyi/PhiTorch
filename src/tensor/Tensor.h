@@ -9,11 +9,6 @@ typedef struct {
     int ndim;       //rank
     int dSize;      //size of data
     const char* device;   //cpu/gpu
-
-    // Tensor* operator=(const Tensor& o);
-    // Tensor* operator+(const Tensor* o);
-    // Tensor* operator-(const Tensor* o);
-
 } Tensor;
 
 Tensor* create_tensor(int* shape, int ndim);

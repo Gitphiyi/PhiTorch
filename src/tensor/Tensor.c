@@ -10,7 +10,7 @@
 
 
 // using namespace std;
-extern ThreadPool* threads;
+extern thread_pool_t* threads;
 
 Tensor* create_tensor(int* shape, int ndim) {
     int dSize = 1;

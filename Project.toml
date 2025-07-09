@@ -1,6 +1,12 @@
 name = "PhiTorch"
 uuid = "fce5034b-5ab5-4dba-82db-8603670c76ec"
-authors = ["Philip Yi"]
-version = "0.0.1"
+authors = ["Philip Yi <philip.yi.work@gmail.com>"]
+version = "0.1.0"
+
 [deps]
 Metal = "dde4c033-4e86-420c-a63e-0dd931031962"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
+
+[compat]
+Metal = "1.6.2"
+StaticArrays = "1.9.13"
