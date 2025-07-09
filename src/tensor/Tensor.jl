@@ -1,6 +1,6 @@
 module TensorPkg
-using StaticArrays
-export Tensor
+using StaticArrays, LinearAlgebra
+export Tensor, gpu_dot
 
     struct Tensor{N, T, S<:StaticVector{N, T} }
         ndim::UInt64
@@ -16,8 +16,8 @@ export Tensor
         return Tensor{N,T,typeof(v)}(n, n, v)
     end
     
-    function gpu_dot(t1::Tensor, t2::Tensor)
-        dot(t1, t2)
+    function gpu_dot(t1, t2)
+        return dot(t1.data, t2.data)
     end
 
 end

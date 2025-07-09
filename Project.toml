@@ -4,9 +4,11 @@ authors = ["Philip Yi <philip.yi.work@gmail.com>"]
 version = "0.1.0"
 
 [deps]
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 Metal = "dde4c033-4e86-420c-a63e-0dd931031962"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 
 [compat]
+BenchmarkTools = "1.6.0"
 Metal = "1.6.2"
 StaticArrays = "1.9.13"
