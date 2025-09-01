@@ -1,7 +1,6 @@
-#ifndef TENSOR_H
-#define TENSOR_H
+#pragma once
 
-typedef struct {
+struct Tensor {
     float* data;
     float* grad;    
     int* shape;     //shape of each dim
@@ -9,7 +8,7 @@ typedef struct {
     int ndim;       //rank
     int dSize;      //size of data
     const char* device;   //cpu/gpu
-} Tensor;
+};
 
 Tensor* create_tensor(int* shape, int ndim);
 void    delete_tensor(Tensor* t);
@@ -29,4 +28,3 @@ Tensor* zeros(const int* shape, const char* device);
 Tensor* ones(const int* shape, const char* device);
 Tensor* rand_tens(const int* shape, const int ndim);
 Tensor* eye(const int* shape, const int ndim);
-#endif

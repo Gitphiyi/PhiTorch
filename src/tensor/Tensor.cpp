@@ -1,5 +1,4 @@
-#include "Tensor.h"
-#include "../lib/ThreadPool.h"
+#include "tensor/Tensor.hpp"
 #include <stdio.h>
 #include <string.h>
 #include <stddef.h>
@@ -10,7 +9,6 @@
 
 
 // using namespace std;
-extern thread_pool_t* threads;
 
 Tensor* create_tensor(int* shape, int ndim) {
     int dSize = 1;
@@ -168,11 +166,11 @@ void* dot_helper(void* args) {
     //Thread step
     pthread_t thread1;
     pthread_t thread2;
-    dot_t* l_tens = malloc(sizeof(dot_t));
+    dot_t* l_tens = (dot_t*) malloc(sizeof(dot_t));
     memcpy(l_tens,
         &(dot_t){ .a=d->a, .b=d->b, .st=d->st, .end=mid },
         sizeof(dot_t));
-    dot_t* r_tens = malloc(sizeof(dot_t));
+    dot_t* r_tens = (dot_t*) malloc(sizeof(dot_t));
     memcpy(r_tens,
         &(dot_t){ .a=d->a, .b=d->b, .st=mid+1, .end=d->end },
         sizeof(dot_t));
