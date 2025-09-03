@@ -23,6 +23,17 @@
 
 using namespace std;
 
+Tensor::Tensor(int dSize_, const char* device_) : dSize(dSize_), device(device_) {
+    ndim = 1;
+    shape = new int[1];
+    stride = new int[1];
+    shape[0] = dSize;
+    stride[0] = dSize;
+    data = new float[dSize];
+    grad = new float[dSize];
+    fill(data, data + dSize, 0.0f);
+    fill(grad, grad + dSize, 0.0f);
+}
 Tensor::Tensor(int* shape_, int ndim_, const char* device_) : ndim(ndim_), device(device_) {
         dSize = 1;
         stride = new int[ndim];
@@ -47,8 +58,6 @@ Tensor::Tensor(int* shape_, int ndim_, const char* device_) : ndim(ndim_), devic
         grad = new float[dSize];
         fill(data, data + dSize, 0.0f);
         fill(grad, grad + dSize, 0.0f);
-
-        //memcpy device string as well as it will dangle once it is over
 };
 Tensor::~Tensor() {
     delete[] data;

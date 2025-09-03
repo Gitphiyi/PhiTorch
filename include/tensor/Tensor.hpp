@@ -13,6 +13,7 @@ struct Tensor {
     const char* device;   //cpu/gpu
 
     Tensor(int* shape_, int ndim_, const char* device); 
+    Tensor(int dSize_, const char* device);
     //implement Tensors as lazily allocated objects later
     ~Tensor();
     int     set_data(float* newData, int size);
@@ -25,6 +26,8 @@ struct Tensor {
 
     bool operator==(const Tensor* o);
     bool operator!=(const Tensor* o);
+    void operator+=(const Tensor* o);
+    void operator-=(const Tensor* o);
 };
 
 float   dot(const Tensor* a, const Tensor* b);
