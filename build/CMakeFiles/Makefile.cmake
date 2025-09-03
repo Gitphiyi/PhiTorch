@@ -58,6 +58,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/tens_metallib.dir/DependInfo.cmake"
   "CMakeFiles/tens.dir/DependInfo.cmake"
   "examples/CMakeFiles/tensor.dir/DependInfo.cmake"
   )

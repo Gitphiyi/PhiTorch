@@ -36,7 +36,7 @@ void test_reshape() {
 void test_transpose() {
     printf("\nRun transpose() \n");
     int shape[2] = {2,4};
-    Tensor t = Tensor(shape, 2, CPU);
+    Tensor t = Tensor(shape, 2, GPU);
     int sz= shape[0] * shape[1];
     float data[] = {1,2,3,4,5,6,7,8};
 

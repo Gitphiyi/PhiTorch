@@ -20,14 +20,17 @@ struct Tensor {
     Tensor* flatten(); //collapse dimension into 1
     Tensor* reshape(int* new_shape, int new_dim);
     Tensor* transpose(); //only allow for 2D Tensors
+    float   item(int i); //gets element of tensor[1]
+    float   at(const int* indices, int ndim);
+
+    bool operator==(const Tensor* o);
+    bool operator!=(const Tensor* o);
 };
 
 float   dot(const Tensor* a, const Tensor* b);
 Tensor* matmul(const Tensor* a, const Tensor* b);
-float   item(const Tensor* t, int i); //gets element of tensor[1]
-float   at(const int* shape, int ndim);
 
-
+// Generate Tensors
 Tensor* zeros(const int* shape, const char* device);  
 Tensor* ones(const int* shape, const char* device);
 Tensor* rand_tens(const int* shape, const int ndim);

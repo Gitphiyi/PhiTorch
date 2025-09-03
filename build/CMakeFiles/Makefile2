@@ -63,11 +63,13 @@ CMAKE_BINARY_DIR = /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/tens_metallib.dir/all
 all: CMakeFiles/tens.dir/all
 all: examples/all
 .PHONY : all
 
 # The main recursive "codegen" target.
+codegen: CMakeFiles/tens_metallib.dir/codegen
 codegen: CMakeFiles/tens.dir/codegen
 codegen: examples/codegen
 .PHONY : codegen
@@ -77,6 +79,7 @@ preinstall: examples/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/tens_metallib.dir/clean
 clean: CMakeFiles/tens.dir/clean
 clean: examples/clean
 .PHONY : clean
@@ -101,18 +104,50 @@ examples/clean: examples/CMakeFiles/tensor.dir/clean
 .PHONY : examples/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/tens_metallib.dir
+
+# All Build rule for target.
+CMakeFiles/tens_metallib.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens_metallib.dir/build.make CMakeFiles/tens_metallib.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens_metallib.dir/build.make CMakeFiles/tens_metallib.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=4,5 "Built target tens_metallib"
+.PHONY : CMakeFiles/tens_metallib.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/tens_metallib.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/tens_metallib.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles 0
+.PHONY : CMakeFiles/tens_metallib.dir/rule
+
+# Convenience name for target.
+tens_metallib: CMakeFiles/tens_metallib.dir/rule
+.PHONY : tens_metallib
+
+# codegen rule for target.
+CMakeFiles/tens_metallib.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens_metallib.dir/build.make CMakeFiles/tens_metallib.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=4,5 "Finished codegen for target tens_metallib"
+.PHONY : CMakeFiles/tens_metallib.dir/codegen
+
+# clean rule for target.
+CMakeFiles/tens_metallib.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens_metallib.dir/build.make CMakeFiles/tens_metallib.dir/clean
+.PHONY : CMakeFiles/tens_metallib.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/tens.dir
 
 # All Build rule for target.
-CMakeFiles/tens.dir/all:
+CMakeFiles/tens.dir/all: CMakeFiles/tens_metallib.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens.dir/build.make CMakeFiles/tens.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens.dir/build.make CMakeFiles/tens.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=1,2 "Built target tens"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=1,2,3 "Built target tens"
 .PHONY : CMakeFiles/tens.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tens.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/tens.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles 0
 .PHONY : CMakeFiles/tens.dir/rule
@@ -122,9 +157,9 @@ tens: CMakeFiles/tens.dir/rule
 .PHONY : tens
 
 # codegen rule for target.
-CMakeFiles/tens.dir/codegen:
+CMakeFiles/tens.dir/codegen: CMakeFiles/tens_metallib.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens.dir/build.make CMakeFiles/tens.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=1,2 "Finished codegen for target tens"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target tens"
 .PHONY : CMakeFiles/tens.dir/codegen
 
 # clean rule for target.
@@ -139,12 +174,12 @@ CMakeFiles/tens.dir/clean:
 examples/CMakeFiles/tensor.dir/all: CMakeFiles/tens.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/tensor.dir/build.make examples/CMakeFiles/tensor.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/tensor.dir/build.make examples/CMakeFiles/tensor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=3,4 "Built target tensor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=6,7 "Built target tensor"
 .PHONY : examples/CMakeFiles/tensor.dir/all
 
 # Build rule for subdir invocation for target.
 examples/CMakeFiles/tensor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/CMakeFiles/tensor.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles 0
 .PHONY : examples/CMakeFiles/tensor.dir/rule
@@ -156,7 +191,7 @@ tensor: examples/CMakeFiles/tensor.dir/rule
 # codegen rule for target.
 examples/CMakeFiles/tensor.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/tensor.dir/build.make examples/CMakeFiles/tensor.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=3,4 "Finished codegen for target tensor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=6,7 "Finished codegen for target tensor"
 .PHONY : examples/CMakeFiles/tensor.dir/codegen
 
 # clean rule for target.

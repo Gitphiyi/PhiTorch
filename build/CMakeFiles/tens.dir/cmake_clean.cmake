@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/tens.dir/src/GpuScheduler.cpp.o"
+  "CMakeFiles/tens.dir/src/GpuScheduler.cpp.o.d"
   "CMakeFiles/tens.dir/src/tensor/Tensor.cpp.o"
   "CMakeFiles/tens.dir/src/tensor/Tensor.cpp.o.d"
   "libtens.a"

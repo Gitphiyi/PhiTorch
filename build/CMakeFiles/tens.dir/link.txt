@@ -1,2 +1,2 @@
-/usr/bin/ar qc libtens.a CMakeFiles/tens.dir/src/tensor/Tensor.cpp.o
+/usr/bin/ar qc libtens.a CMakeFiles/tens.dir/src/tensor/Tensor.cpp.o CMakeFiles/tens.dir/src/GpuScheduler.cpp.o
 /usr/bin/ranlib libtens.a

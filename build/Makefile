@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named tens_metallib
+
+# Build rule for target.
+tens_metallib: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tens_metallib
+.PHONY : tens_metallib
+
+# fast build rule for target.
+tens_metallib/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens_metallib.dir/build.make CMakeFiles/tens_metallib.dir/build
+.PHONY : tens_metallib/fast
+
+#=============================================================================
 # Target rules for targets named tens
 
 # Build rule for target.
@@ -141,6 +154,30 @@ tensor: cmake_check_build_system
 tensor/fast:
 	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/tensor.dir/build.make examples/CMakeFiles/tensor.dir/build
 .PHONY : tensor/fast
+
+src/GpuScheduler.o: src/GpuScheduler.cpp.o
+.PHONY : src/GpuScheduler.o
+
+# target to build an object file
+src/GpuScheduler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens.dir/build.make CMakeFiles/tens.dir/src/GpuScheduler.cpp.o
+.PHONY : src/GpuScheduler.cpp.o
+
+src/GpuScheduler.i: src/GpuScheduler.cpp.i
+.PHONY : src/GpuScheduler.i
+
+# target to preprocess a source file
+src/GpuScheduler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens.dir/build.make CMakeFiles/tens.dir/src/GpuScheduler.cpp.i
+.PHONY : src/GpuScheduler.cpp.i
+
+src/GpuScheduler.s: src/GpuScheduler.cpp.s
+.PHONY : src/GpuScheduler.s
+
+# target to generate assembly for a file
+src/GpuScheduler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens.dir/build.make CMakeFiles/tens.dir/src/GpuScheduler.cpp.s
+.PHONY : src/GpuScheduler.cpp.s
 
 src/tensor/Tensor.o: src/tensor/Tensor.cpp.o
 .PHONY : src/tensor/Tensor.o
@@ -174,8 +211,12 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... tens_metallib"
 	@echo "... tens"
 	@echo "... tensor"
+	@echo "... src/GpuScheduler.o"
+	@echo "... src/GpuScheduler.i"
+	@echo "... src/GpuScheduler.s"
 	@echo "... src/tensor/Tensor.o"
 	@echo "... src/tensor/Tensor.i"
 	@echo "... src/tensor/Tensor.s"

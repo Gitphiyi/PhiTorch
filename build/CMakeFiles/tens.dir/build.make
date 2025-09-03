@@ -86,17 +86,33 @@ CMakeFiles/tens.dir/src/tensor/Tensor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/tens.dir/src/tensor/Tensor.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/src/tensor/Tensor.cpp -o CMakeFiles/tens.dir/src/tensor/Tensor.cpp.s
 
+CMakeFiles/tens.dir/src/GpuScheduler.cpp.o: CMakeFiles/tens.dir/flags.make
+CMakeFiles/tens.dir/src/GpuScheduler.cpp.o: /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/src/GpuScheduler.cpp
+CMakeFiles/tens.dir/src/GpuScheduler.cpp.o: CMakeFiles/tens.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/tens.dir/src/GpuScheduler.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tens.dir/src/GpuScheduler.cpp.o -MF CMakeFiles/tens.dir/src/GpuScheduler.cpp.o.d -o CMakeFiles/tens.dir/src/GpuScheduler.cpp.o -c /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/src/GpuScheduler.cpp
+
+CMakeFiles/tens.dir/src/GpuScheduler.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/tens.dir/src/GpuScheduler.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/src/GpuScheduler.cpp > CMakeFiles/tens.dir/src/GpuScheduler.cpp.i
+
+CMakeFiles/tens.dir/src/GpuScheduler.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/tens.dir/src/GpuScheduler.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/src/GpuScheduler.cpp -o CMakeFiles/tens.dir/src/GpuScheduler.cpp.s
+
 # Object files for target tens
 tens_OBJECTS = \
-"CMakeFiles/tens.dir/src/tensor/Tensor.cpp.o"
+"CMakeFiles/tens.dir/src/tensor/Tensor.cpp.o" \
+"CMakeFiles/tens.dir/src/GpuScheduler.cpp.o"
 
 # External object files for target tens
 tens_EXTERNAL_OBJECTS =
 
 libtens.a: CMakeFiles/tens.dir/src/tensor/Tensor.cpp.o
+libtens.a: CMakeFiles/tens.dir/src/GpuScheduler.cpp.o
 libtens.a: CMakeFiles/tens.dir/build.make
 libtens.a: CMakeFiles/tens.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libtens.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libtens.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/tens.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tens.dir/link.txt --verbose=$(VERBOSE)
 

@@ -1,1 +1,1 @@
-/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address CMakeFiles/tensor.dir/tensor.cpp.o -o tensor  ../libtens.a
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address CMakeFiles/tensor.dir/tensor.cpp.o -o tensor  ../libtens.a -framework Metal -framework Foundation -framework QuartzCore -framework MetalKit

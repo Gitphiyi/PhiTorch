@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+48d037f67d8e553a9a050109a8c3ef89 CMakeFiles/tens_metallib
+499d27276cdb6fdc3288c7c122684476 tens.metallib
+aeb183ab91abe133a3e3c7dcd6cc1d25 tensor.air

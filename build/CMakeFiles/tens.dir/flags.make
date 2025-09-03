@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/include
+CXX_INCLUDES = -I/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/include -I/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/extern/metal-cpp
 
 CXX_FLAGSarm64 = -std=gnu++20 -arch arm64 -fsanitize=address
 
