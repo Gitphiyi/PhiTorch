@@ -2,3 +2,6 @@
 /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles/main.dir
 /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles/edit_cache.dir
 /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles/rebuild_cache.dir
+/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/examples/CMakeFiles/tensor.dir
+/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/examples/CMakeFiles/edit_cache.dir
+/Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/examples/CMakeFiles/rebuild_cache.dir

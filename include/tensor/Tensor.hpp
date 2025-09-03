@@ -8,13 +8,13 @@ struct Tensor {
     int ndim;       //rank
     int dSize;      //size of data
     const char* device;   //cpu/gpu
+
+    Tensor(int* shape_, int ndim_);
+    ~Tensor();
+    int     set_data(float* newData, int size);
+    void    print_metadata();
 };
 
-Tensor* create_tensor(int* shape, int ndim);
-void    delete_tensor(Tensor* t);
-
-int     set_data(Tensor* tens, float* data, int size);
-void    print_metadata(Tensor* t);
 Tensor* flatten(const Tensor* t); //collapse dimension into 1
 Tensor* reshape(const Tensor* t, int* shape, int ndim);
 Tensor* transpose(const Tensor* t); //only allow for 2D Tensors

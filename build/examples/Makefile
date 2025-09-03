@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/examples//CMakeFiles/progress.marks
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,105 +103,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named tens
+# Convenience name for target.
+examples/CMakeFiles/tensor.dir/rule:
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/CMakeFiles/tensor.dir/rule
+.PHONY : examples/CMakeFiles/tensor.dir/rule
 
-# Build rule for target.
-tens: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tens
-.PHONY : tens
-
-# fast build rule for target.
-tens/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens.dir/build.make CMakeFiles/tens.dir/build
-.PHONY : tens/fast
-
-#=============================================================================
-# Target rules for targets named main
-
-# Build rule for target.
-main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
-.PHONY : main
-
-# fast build rule for target.
-main/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
-.PHONY : main/fast
-
-#=============================================================================
-# Target rules for targets named tensor
-
-# Build rule for target.
-tensor: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tensor
+# Convenience name for target.
+tensor: examples/CMakeFiles/tensor.dir/rule
 .PHONY : tensor
 
 # fast build rule for target.
 tensor/fast:
-	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/tensor.dir/build.make examples/CMakeFiles/tensor.dir/build
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/tensor.dir/build.make examples/CMakeFiles/tensor.dir/build
 .PHONY : tensor/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+tensor.o: tensor.cpp.o
+.PHONY : tensor.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.o
-.PHONY : main.cpp.o
+tensor.cpp.o:
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/tensor.dir/build.make examples/CMakeFiles/tensor.dir/tensor.cpp.o
+.PHONY : tensor.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
-.PHONY : main.cpp.s
-
-src/tensor/Tensor.o: src/tensor/Tensor.cpp.o
-.PHONY : src/tensor/Tensor.o
-
-# target to build an object file
-src/tensor/Tensor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens.dir/build.make CMakeFiles/tens.dir/src/tensor/Tensor.cpp.o
-.PHONY : src/tensor/Tensor.cpp.o
-
-src/tensor/Tensor.i: src/tensor/Tensor.cpp.i
-.PHONY : src/tensor/Tensor.i
+tensor.i: tensor.cpp.i
+.PHONY : tensor.i
 
 # target to preprocess a source file
-src/tensor/Tensor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens.dir/build.make CMakeFiles/tens.dir/src/tensor/Tensor.cpp.i
-.PHONY : src/tensor/Tensor.cpp.i
+tensor.cpp.i:
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/tensor.dir/build.make examples/CMakeFiles/tensor.dir/tensor.cpp.i
+.PHONY : tensor.cpp.i
 
-src/tensor/Tensor.s: src/tensor/Tensor.cpp.s
-.PHONY : src/tensor/Tensor.s
+tensor.s: tensor.cpp.s
+.PHONY : tensor.s
 
 # target to generate assembly for a file
-src/tensor/Tensor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tens.dir/build.make CMakeFiles/tens.dir/src/tensor/Tensor.cpp.s
-.PHONY : src/tensor/Tensor.cpp.s
+tensor.cpp.s:
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/tensor.dir/build.make examples/CMakeFiles/tensor.dir/tensor.cpp.s
+.PHONY : tensor.cpp.s
 
 # Help Target
 help:
@@ -211,15 +162,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... main"
-	@echo "... tens"
 	@echo "... tensor"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
-	@echo "... src/tensor/Tensor.o"
-	@echo "... src/tensor/Tensor.i"
-	@echo "... src/tensor/Tensor.s"
+	@echo "... tensor.o"
+	@echo "... tensor.i"
+	@echo "... tensor.s"
 .PHONY : help
 
 
@@ -231,6 +177,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/philipyi/Documents/Coding-Projects/C++/PhiTorch/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

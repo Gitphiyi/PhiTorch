@@ -16,6 +16,8 @@ target_include_directories(tens PUBLIC ${PROJECT_SOURCE_DIR}/include) #directori
 add_executable(main main.cpp)
 target_link_libraries(main PRIVATE tens)
 
+add_subdirectory(examples)
+
 # --- Testing ---
 # RUN TESTS: ctest
 # RUN SPECIFIC TEST: ctest -R compiler_tests //only run compiler tests. follows name in file not filename

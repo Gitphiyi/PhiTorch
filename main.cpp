@@ -14,7 +14,6 @@ int main() {
         b_data[i] = (float) rand();
     }
 
-    Tensor* t = create_tensor(shape, ndim);
 //    Tensor* b = create_tensor(shape, ndim);
 //    set_data(a, a_data, 40);
 //    set_data(b, b_data, 40);
