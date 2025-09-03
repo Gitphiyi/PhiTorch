@@ -1,5 +1,8 @@
 #pragma once
 
+inline constexpr const char* CPU = "cpu";
+inline constexpr const char* GPU = "gpu";
+
 struct Tensor {
     float* data;
     float* grad;    
@@ -9,15 +12,16 @@ struct Tensor {
     int dSize;      //size of data
     const char* device;   //cpu/gpu
 
-    Tensor(int* shape_, int ndim_);
+    Tensor(int* shape_, int ndim_, const char* device); 
+    //implement Tensors as lazily allocated objects later
     ~Tensor();
     int     set_data(float* newData, int size);
-    void    print_metadata();
+    void    print_metadata(int max_print);
+    Tensor* flatten(); //collapse dimension into 1
+    Tensor* reshape(int* new_shape, int new_dim);
+    Tensor* transpose(); //only allow for 2D Tensors
 };
 
-Tensor* flatten(const Tensor* t); //collapse dimension into 1
-Tensor* reshape(const Tensor* t, int* shape, int ndim);
-Tensor* transpose(const Tensor* t); //only allow for 2D Tensors
 float   dot(const Tensor* a, const Tensor* b);
 Tensor* matmul(const Tensor* a, const Tensor* b);
 float   item(const Tensor* t, int i); //gets element of tensor[1]

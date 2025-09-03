@@ -13,8 +13,8 @@ add_library( tens STATIC
 )
 target_include_directories(tens PUBLIC ${PROJECT_SOURCE_DIR}/include) #directories refers to folder so any #include refers to the include folder
 
-add_executable(main main.cpp)
-target_link_libraries(main PRIVATE tens)
+# add_executable(main main.cpp)
+# target_link_libraries(main PRIVATE tens)
 
 add_subdirectory(examples)
 

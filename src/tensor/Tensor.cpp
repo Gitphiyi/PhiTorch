@@ -12,12 +12,11 @@
 
 using namespace std;
 
-Tensor::Tensor(int* shape_, int ndim_) : ndim(ndim_), device("cpu")  {
+Tensor::Tensor(int* shape_, int ndim_, const char* device_) : ndim(ndim_), device(device_) {
         dSize = 1;
-        shape = new int[ndim];
         stride = new int[ndim];
-
-        std::memcpy(shape, shape_, ndim * sizeof(int));
+        shape = new int[ndim];
+        memcpy(shape, shape_, sizeof(int) * ndim);
 
         for(int i = ndim-1; i >= 0; i--) {
             dSize *= shape[i];
@@ -28,11 +27,17 @@ Tensor::Tensor(int* shape_, int ndim_) : ndim(ndim_), device("cpu")  {
                 stride[i] = 1;
             }
         }
+        if(ndim == 1) {
+            stride[0] = shape[0];
+            dSize = shape[0];
+        }
 
         data = new float[dSize];
         grad = new float[dSize];
         fill(data, data + dSize, 0.0f);
         fill(grad, grad + dSize, 0.0f);
+
+        //memcpy device string as well as it will dangle once it is over
 };
 Tensor::~Tensor() {
     delete[] data;
@@ -51,7 +56,8 @@ int Tensor::set_data(float* newData, int size) {
     }
     return 0;
 }
-void Tensor::print_metadata() {
+void Tensor::print_metadata(int max_print) {
+    printf("-----------------Tensor Print-----------------\n");
     printf("%d-dim %s Tensor: size = %d \n", ndim, device, dSize);
     printf("Stride = [");
     for(int i = 0; i < ndim; i++) {
@@ -69,68 +75,71 @@ void Tensor::print_metadata() {
         }
     }
     printf("]\n");
+    printf("Data = [");
+    int end = std::min(max_print, dSize);
+    for(int i = 0; i < end; i++) {
+        printf("%.2f", data[i]);
+        if(i < end - 1) {
+            printf(", ");
+        }
+    }
+    if(end < dSize) {
+        printf(",..., %.2f", data[dSize-1]);
+    }
+    printf("]\n");
 }
 
-// Tensor* flatten(const Tensor* t) {
-//     int shape[1] = { t->dSize };
-//     Tensor* tens = (Tensor*) malloc(sizeof(Tensor));
-//     tens->data = t->data;
-//     tens->grad = t->grad;
-//     tens->shape = shape;
-//     tens->stride = t->stride;
-//     tens->ndim = 1;
-//     tens->dSize = t->dSize;
-//     tens->device = t->device;
-//     return tens;
-// }
+Tensor* Tensor::flatten() {
+    int new_shape[1] = { dSize };
+    Tensor* t = new Tensor(new_shape, 1, device);
+    if (data && t->data) {
+        memcpy(t->data, data, sizeof(float) * dSize);
+    }
+    if (grad && t->grad) {
+        memcpy(t->grad, grad, sizeof(float) * dSize);
+    }
+    return t;
+}
 
-// Tensor* reshape(const Tensor* t, int* shape, int ndim) {
-//     int numData = 1;
-//     for(int i = 0; i < ndim; i++) {
-//         numData = numData * shape[i];
-//     }
-//     if(numData != t->dSize) {
-//         return NULL;
-//     }
-//     Tensor* tens = (Tensor*) malloc(sizeof(Tensor));
-//     tens->data = t->data;
-//     tens->grad = t->grad;
-//     tens->shape = shape;
-//     tens->stride = t->stride;
-//     tens->ndim = ndim;
-//     tens->dSize = t->dSize;
-//     tens->device = t->device;
-//     return tens;
-// }
+Tensor* Tensor::reshape(int* new_shape, int new_dim) {
+    Tensor* t = new Tensor(new_shape, new_dim, device);
+    if (data && t->data) {
+        memcpy(t->data, data, sizeof(float) * dSize);
+    }
+    if (grad && t->grad) {
+        memcpy(t->grad, grad, sizeof(float) * dSize);
+    }
+    return t;
+}
 
-// Tensor* transpose(const Tensor* t) {
-//     if(t->ndim != 2) {
-//         printf("Not a 2-D Tensor");
-//         return NULL;
-//     }
-//     Tensor* tens = (Tensor*) malloc(sizeof(Tensor));
-//     tens->data = (float*) malloc(t->dSize * sizeof(float));
-//     tens->grad = (float*) malloc(t->dSize * sizeof(float));
-//     tens->shape = (int*) malloc(t->ndim * sizeof(float));
-//     memcpy(tens->shape, t->shape, t->ndim * sizeof(float));
-//     tens->stride = (int*) malloc(t->ndim * sizeof(float));
-//     memcpy(tens->stride, t->stride, t->ndim * sizeof(float));
-//     tens->ndim = t->ndim;
-//     tens->dSize = t->dSize;
-//     tens->device = t->device;
-//     for(int i = 0; i < t->shape[0]; i++) {
-//         for(int j = 0; j < t->shape[1]; j++) {
-//             int src = t->stride[0] * i +t->stride[1] * j; 
-//             int target = t->stride[0] * j +t->stride[1] * i; 
-//             tens->data[target] = t->data[src];
-//             tens->grad[target] = t->grad[src];
-//             tens->data[src] = t->data[target];
-//             tens->grad[src] = t->grad[target];
-//         }
-//     }
-//     return tens;
-//     //multithread this if bigger than cache line
-// }
+Tensor* Tensor::transpose() {
+    if(ndim != 2) {
+        printf("Not a 2-D Tensor");
+        return NULL;
+    }
+
+    const int rows = shape[0];
+    const int cols = shape[1];
+    int new_shape[2] = { cols, rows };
+    Tensor* out = new Tensor(new_shape, 2, device);
+
+    if(strcmp(device, GPU) == 0) {
+        printf("is a gpu \n");
+        return nullptr;
+    }
+
+    for (int i = 0; i < rows; ++i) {
+        const int in_row_base = i * cols;  
+        for (int j = 0; j < cols; ++j) {
+            const int src = in_row_base + j; 
+            const int dst = j * rows + i;   
+            if (data) out->data[dst] = data[src];
+            if (grad) out->grad[dst] = grad[src];
+        }
+    }
+    return out;
+    //multithread this if bigger than cache line
+}
 
 // /**
 //  * Dot product process can be split into two steps: 

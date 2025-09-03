@@ -130,19 +130,6 @@ tens/fast:
 .PHONY : tens/fast
 
 #=============================================================================
-# Target rules for targets named main
-
-# Build rule for target.
-main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
-.PHONY : main
-
-# fast build rule for target.
-main/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
-.PHONY : main/fast
-
-#=============================================================================
 # Target rules for targets named tensor
 
 # Build rule for target.
@@ -154,30 +141,6 @@ tensor: cmake_check_build_system
 tensor/fast:
 	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/tensor.dir/build.make examples/CMakeFiles/tensor.dir/build
 .PHONY : tensor/fast
-
-main.o: main.cpp.o
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
-.PHONY : main.cpp.s
 
 src/tensor/Tensor.o: src/tensor/Tensor.cpp.o
 .PHONY : src/tensor/Tensor.o
@@ -211,12 +174,8 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... main"
 	@echo "... tens"
 	@echo "... tensor"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
 	@echo "... src/tensor/Tensor.o"
 	@echo "... src/tensor/Tensor.i"
 	@echo "... src/tensor/Tensor.s"
